@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Nature Sounds</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="keys">
+
+        <div data-key="65" class="key">
+            <kbd>A</kbd>
+            <span class="sound">fire</span>
+        </div>
+        <div data-key="83" class="key">
+            <kbd>S</kbd>
+            <span class="sound">forest</span>
+        </div>
+        <div data-key="68" class="key">
+            <kbd>D</kbd>
+            <span class="sound">jungle</span>
+        </div>
+        <div data-key="70" class="key">
+            <kbd>F</kbd>
+            <span class="sound">rain</span>
+        </div>
+        <div data-key="71" class="key">
+            <kbd>G</kbd>
+            <span class="sound">wind</span>
+        </div>
+    </div>
+
+    <audio data-key="65" src="natures/fire.wav" ></audio>
+    <audio data-key="83" src="natures/forest.wav" />
+    <audio data-key="68" src="natures/jungle.wav" />
+    <audio data-key="70" src="natures/rain_start.wav" />
+    <audio data-key="71" src="natures/wind.wav" />
+
+<script>
+
+    window.addEventListener('keydown', playSound);
+
+    function playSound (e) {
+        
+        var audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        var box = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+
+        audio.currentTime = 0;
+        audio.play();
+        audio.addEventListener('ended', function () {
+            box.classList.remove('playing');
+        });
+
+        
+        box.classList.add('playing');
+    }
+
+</script>
+
+</body>
+</html>
