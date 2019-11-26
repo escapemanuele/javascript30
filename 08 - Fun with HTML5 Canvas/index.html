@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800" class="wrapper"></canvas>
+
+<script>
+    const canvas = document.querySelector('#draw');
+    const ctx = canvas.getContext('2d');
+
+    //Resize tu full window
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    ctx.strokeStyle = '#BADASS';
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.lineWidth = 10;
+    ctx.globalCompositeOperation = 'multiply';
+
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+    let hue = 0;
+    let direction = true;
+
+    function draw(e) {
+        if (!isDrawing) return; //stop the function from running
+        
+        console.log(e);
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+        ctx.beginPath();
+        //start from
+        ctx.moveTo(lastX, lastY);
+        //go to
+        ctx.lineTo(e.targetTouches[0].pageX, e.targetTouches[0].pageY);
+        ctx.stroke();
+
+        [lastX, lastY] = [e.targetTouches[0].pageX, e.targetTouches[0].pageY];
+        hue++;
+        if (hue >= 360) {
+            hue = 0;
+        }
+
+        
+        if (ctx.lineWidth >= 50 || ctx.lineWidth <= 1) {
+            direction = !direction;
+        }
+        if (direction) {
+            ctx.lineWidth++;
+        } else {
+            ctx.lineWidth--;
+        }
+        
+    }
+
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    });
+    canvas.addEventListener('touchstart', (e) => {
+        console.log(e.targetTouches[0].pageX)
+        isDrawing = true;
+        [lastX, lastY] = [e.targetTouches[0].pageX, e.targetTouches[0].pageY];
+    });
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('touchend', () => isDrawing = false);
+    canvas.addEventListener('mouseout', () => isDrawing = false);
+    canvas.addEventListener('touchout', () => isDrawing = false);
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+
+  .body,
+.wrapper {
+  /* Break the flow */
+  position: absolute;
+  top: 0px;
+
+  /* Give them all the available space */
+  width: 100%;
+  height: 100%;
+
+  /* Remove the margins if any */
+  margin: 0;
+
+  /* Allow them to scroll down the document */
+  overflow-y: hidden;
+}
+
+.body {
+  /* Sending body at the bottom of the stack */
+  z-index: 1;
+}
+
+.wrapper {
+  /* Making the wrapper stack above the body */
+  z-index: 2;
+}
+</style>
+
+</body>
+</html>
