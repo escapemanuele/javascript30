@@ -8,16 +8,26 @@
 
   <script>
     // start with strings, numbers and booleans
+    let age = 100;
+    let age2 = age;
+    console.log(age, age2);
+    age = 200;
+    console.log(age, age2);
 
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
     // and we want to make a copy of it.
+    const team = players;
+    console.log(players, team)
+    
+    
 
     // You might think we can just do something like this:
+    team[3] = 'Blah';
 
     // however what happens when we update that array?
-
+    console.log(players, team)
     // now here is the problem!
 
     // oh no - we have edited the original array too!
@@ -25,14 +35,21 @@
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
+    const team2 = team.slice();
 
     // one way
 
     // or create a new array and concat the old one in
-
+    const team3 = [].concat(team)
     // or use the new ES6 Spread
+    const team4 = [...team];
+    
 
     // now when we update it, the original one isn't changed
+    console.log(team, team4)
+    team4[3] = 'dsklkd'
+    console.log(team, team4)
+
 
     // The same thing goes for objects, let's say we have a person object
 
@@ -43,13 +60,34 @@
     };
 
     // and think we make a copy:
-
+    const person2 = person;
+    person2.age = 94;
+    console.log(person, person2);
     // how do we take a copy instead?
-
+    const cap2 = Object.assign({}, person, {age: 12});
+    console.log(person, cap2)
     // We will hopefully soon see the object ...spread
+    const cap3 = {...person};
+    console.log("Obj spread", cap3)
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+    const bux = {
+      name: 'bux',
+      age: 30,
+      social: {
+        twitter: 'twittahhh',
+        instagram: 'escapemanuele'
+      }
+    }
 
+    console.clear();
+    console.log(bux)
+
+    //Poor man deep clone
+    const bux2 = JSON.parse(JSON.stringify(bux));
+    bux2.social.twitter = '@sfa'
+
+    console.log(bux, bux2)
   </script>
 
 </body>
