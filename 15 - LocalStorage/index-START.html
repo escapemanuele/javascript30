@@ -23,11 +23,19 @@
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
     </form>
+    <div>
+        <button class="resetButton">Reset</button>
+        <button class="checkAllButton">Check all</button>
+        <button class="uncheckAllButton">Uncheck all</button>
+    </div>
   </div>
 
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
+  const resetButton = document.querySelector('.resetButton');
+  const checkAllButton = document.querySelector('.checkAllButton');
+  const uncheckAllButton = document.querySelector('.uncheckAllButton');
   const items = JSON.parse(localStorage.getItem('items')) || [];
 
   function addItem(e) {
@@ -55,6 +63,22 @@
         }).join('');
   }
 
+  function resetTacos () {
+    items.length = 0;
+    localStorage.removeItem('items')
+    populateList(items, itemsList);
+  }
+
+  function changeAllTacos (checked) {
+      items.forEach(item => {
+          item.done = checked
+      })
+      localStorage.setItem('items', JSON.stringify(items));
+      populateList(items, itemsList)
+  }
+
+  
+
   function toggleDone(e) {
     if (!e.target.matches('input')) return;
     const el = e.target;
@@ -66,6 +90,9 @@
 
   addItems.addEventListener('submit', addItem);
   itemsList.addEventListener('click', toggleDone);
+  resetButton.addEventListener('click', resetTacos);
+  checkAllButton.addEventListener('click', () => changeAllTacos(true));
+  uncheckAllButton.addEventListener('click', () => changeAllTacos(false));
   
   populateList(items, itemsList);
 
