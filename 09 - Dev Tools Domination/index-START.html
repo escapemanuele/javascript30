@@ -47,10 +47,30 @@
     console.dir(p)
 
     // Grouping together
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`);
+
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+
+      console.groupEnd(`${dog.name}`);
+    })
 
     // counting
+    console.count('asd')
 
     // timing
+    console.time('fetching')
+    fetch('https://api.github.com/users/escapemanuele')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching')
+        console.log(data)
+      })
+
+    //table
+    console.table(dogs)
 
   </script>
 </body>
