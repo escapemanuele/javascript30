@@ -7,52 +7,69 @@
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
+
+    var merge = function(nums1, m, nums2, n) {
+        var insertPos = m + n - 1;
+        m--; n--;
+        while (n >= 0) {
+            console.log(`m: ${m} n: ${n} insertPos: ${insertPos} nums1: ${nums1}`)
+            nums1[insertPos--] = (nums1[m] > nums2[n]) ? nums1[m--] : nums2[n--];
+        }
+    }
+
+    var nums1 = [3,5,7,0,0,0];
+    const m = 3;
+    var nums2 = [1,2,2];
+    const n = 3
+    merge(nums1, m, nums2, n)
+      console.log(nums1);
+
     // ## Array Cardio Day 2
 
-    const people = [
-      { name: 'Wes', year: 1988 },
-      { name: 'Kait', year: 1986 },
-      { name: 'Irv', year: 1970 },
-      { name: 'Lux', year: 2015 }
-    ];
+    // const people = [
+    //   { name: 'Wes', year: 1988 },
+    //   { name: 'Kait', year: 1986 },
+    //   { name: 'Irv', year: 1970 },
+    //   { name: 'Lux', year: 2015 }
+    // ];
 
-    const comments = [
-      { text: 'Love this!', id: 523423 },
-      { text: 'Super good', id: 823423 },
-      { text: 'You are the best', id: 2039842 },
-      { text: 'Ramen is my fav food ever', id: 123523 },
-      { text: 'Nice Nice Nice!', id: 542328 }
-    ];
+    // const comments = [
+    //   { text: 'Love this!', id: 523423 },
+    //   { text: 'Super good', id: 823423 },
+    //   { text: 'You are the best', id: 2039842 },
+    //   { text: 'Ramen is my fav food ever', id: 123523 },
+    //   { text: 'Nice Nice Nice!', id: 542328 }
+    // ];
 
-    // Some and Every Checks
-    // Array.prototype.some() // is at least one person 19 or older?
-    const isAdult = people.some(person => {
-        const currentYear = (new Date()).getFullYear();
-        return currentYear - person.year >= 19;
-    });
-    console.log({isAdult});
+    // // Some and Every Checks
+    // // Array.prototype.some() // is at least one person 19 or older?
+    // const isAdult = people.some(person => {
+    //     const currentYear = (new Date()).getFullYear();
+    //     return currentYear - person.year >= 19;
+    // });
+    // console.log({isAdult});
 
-    // Array.prototype.every() // is everyone 19 or older?
-    const everyoneAdult = people.every(p => ((new Date()).getFullYear() - p.year) >= 19);
-    console.log(everyoneAdult);
+    // // Array.prototype.every() // is everyone 19 or older?
+    // const everyoneAdult = people.every(p => ((new Date()).getFullYear() - p.year) >= 19);
+    // console.log(everyoneAdult);
 
-    // Array.prototype.find()
-    // Find is like filter, but instead returns just the one you are looking for
-    // find the comment with the ID of 823423
-    const found = comments.find(c => c.id === 823423);
-    console.log(found);
+    // // Array.prototype.find()
+    // // Find is like filter, but instead returns just the one you are looking for
+    // // find the comment with the ID of 823423
+    // const found = comments.find(c => c.id === 823423);
+    // console.log(found);
 
-    // Array.prototype.findIndex()
-    // Find the comment with this ID
-    const index = comments.findIndex(c => c.id === 823423);
-    // delete the comment with the ID of 823423
-    const updateds1 = [
-        ...comments.slice(0, index),
-        ...comments.slice(index+1)
-    ];
-    console.table(updateds1);
-    const updateds2 = comments.filter(c => c.id !== 823423);
-    console.table(updateds2);
+    // // Array.prototype.findIndex()
+    // // Find the comment with this ID
+    // const index = comments.findIndex(c => c.id === 823423);
+    // // delete the comment with the ID of 823423
+    // const updateds1 = [
+    //     ...comments.slice(0, index),
+    //     ...comments.slice(index+1)
+    // ];
+    // console.table(updateds1);
+    // const updateds2 = comments.filter(c => c.id !== 823423);
+    // console.table(updateds2);
 
   </script>
 </body>
